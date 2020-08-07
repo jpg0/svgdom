@@ -399,7 +399,9 @@ export class Node extends EventTarget {
   }
 
   set textContent (text) {
-    this.childNodes = [ this.ownerDocument.createTextNode(text) ]
+    let textNode = this.ownerDocument.createTextNode(text);
+    textNode.parentNode = this;
+    this.childNodes = [ textNode ]
   }
 
   get lastChild () {
