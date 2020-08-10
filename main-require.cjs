@@ -1566,7 +1566,9 @@ class Node extends _EventTarget_js__WEBPACK_IMPORTED_MODULE_1__["EventTarget"] {
   }
 
   set textContent (text) {
-    this.childNodes = [ this.ownerDocument.createTextNode(text) ]
+    let textNode = this.ownerDocument.createTextNode(text);
+    textNode.parentNode = this;
+    this.childNodes = [ textNode ]
   }
 
   get lastChild () {
@@ -2345,8 +2347,8 @@ __webpack_require__.r(__webpack_exports__);
 class SVGElement extends _Element_js__WEBPACK_IMPORTED_MODULE_0__["Element"] {
   get ownerSVGElement () {
     let owner = null
-    let parent
-    while ((parent = this.parentNode)) {
+    let parent = this
+    while ((parent = parent.parentNode)) {
       if (parent.nodeName === 'svg') {
         owner = parent
       }
